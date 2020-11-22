@@ -1,0 +1,32 @@
+仮想環境venv フォルダの作成
+$ python3 -m venv venv 
+
+anacondaの仮想環境から抜け出す
+$ conda deactivate
+
+venvフォルダの仮想環境に適応する
+$ . venv/bin/activate 
+
+どのファイルを有効化するか
+$ export FLASK_APP=hello.py
+$ export FLASK_APP=flaskr   (__init__.pyがあるフォルダ/設定している)
+
+開発者モード
+Flaskを実行させたままにしながら、ブラウザのページを再読み込みするだけで済むようにします。
+$ export FLASK_ENV=development
+
+git キャッシュ削除
+$ git rm -r --cached .  
+
+scheme.sqlを実行する
+instance/flaskr.sqliteを作成する
+@click.command('init-db')
+$ flask init-db
+
+$ pip list
+
+いまのディレクトリからsetup.pyを見つけ出し、それを編集可能（editable）または開発（development）モードでインストールするように伝えます。
+$ pip install -e .
+
+
+$ gunicorn flaskr:app
