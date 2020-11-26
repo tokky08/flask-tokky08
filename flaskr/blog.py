@@ -10,30 +10,14 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
-    # print("test{}".format(g.user['id']))
     db = get_db()
-    try:
-        posts = db.execute(
-            'SELECT p.id, title, body, created, author_id, username'
-            ' FROM post p JOIN user u ON p.author_id = u.id'
-            ' WHERE p.author_id = ?'
-            ' ORDER BY created DESC',
-            (g.user['id'],)
-        ).fetchall()
-    except:
-        posts = db.execute(
-            'SELECT p.id, title, body, created, author_id, username'
-            ' FROM post p JOIN user u ON p.author_id = u.id'
-            ' ORDER BY created DESC'
-        ).fetchall()
-    # db = get_db()
-    # posts = db.execute(
-    #     'SELECT p.id, title, body, created, author_id, username'
-    #     ' FROM post p JOIN user u ON p.author_id = u.id'
-    #     ' WHERE p.author_id = ?'
-    #     ' ORDER BY created DESC',
-    #     (g.user['id'],)
-    # ).fetchall()
+    posts = db.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' WHERE p.author_id = ?'
+        ' ORDER BY created DESC',
+        (g.user['id'],)
+    ).fetchall()
     return render_template('blog/index.html', posts=posts)
 
 @bp.route('/create', methods=('GET', 'POST'))
